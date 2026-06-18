@@ -1,0 +1,45 @@
+.authPage{
+    padding: 0px 20px;
+    height: 100%;
+    
+    .authPageInner{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .card_createAccount{
+            padding: 40px 40px;
+            border: 1px solid;
+            border-radius: 5px;
+
+            .cardInner{
+
+                .card_title{
+                    margin-bottom: 20px;
+                    width: 100%;
+                }
+
+                .card_userInfo{
+                    width: 100%;
+                    flex-direction: column;
+                    display: flex;
+                    gap: 20px;
+                    text-align: center;
+                }
+
+                .createAccount_button{
+                    display: flex;
+                    margin-top: 20px;
+
+                    & > button{
+                        width: 100%;
+                        padding: 5px 0px;
+                    }
+                }
+
+            }
+        }
+    }
+    
+}
