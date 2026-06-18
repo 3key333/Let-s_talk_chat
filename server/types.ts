@@ -8,3 +8,17 @@ export interface AppServers {
     httpServer: HttpServer;
     io: SocketServer;
 }
+
+export interface CreateAccountBody {
+    user_name: string;
+    email: string;
+    password: string;
+}
+
+export interface IUserEntity {
+    id: string;
+    user_name: string;
+    email: string;
+    password_hash: string;
+    created_at: string;
+}

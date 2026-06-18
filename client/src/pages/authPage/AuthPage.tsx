@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import style from './authPage.module.scss'
+import { isValidUserInfoToReg } from '../../helpers/helpers'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 export const AuthPage = () => {
 
-    const [userInfo, setUserInfo] = useState<{name: string, email: string, password: string}>({
-        name: '',
+    const navigate = useNavigate()
+
+    const [userInfo, setUserInfo] = useState<{user_name: string, email: string, password: string}>({
+        user_name: '',
         email: '',
         password: ''
     })
@@ -15,8 +20,21 @@ export const AuthPage = () => {
         setUserInfo((prev) => ({...prev, [e.target.name]: text}))
     }
 
-    const handlerClickToCreateAccount = () => {
-        
+    
+
+    const handlerClickToCreateAccount = async () => {
+
+        const validate = isValidUserInfoToReg(userInfo)
+        console.log(validate)
+
+        if(validate){
+            const data = await axios.post('http://localhost:3000/api/auth/create_account', userInfo)
+            const accountInfo = data?.data.data
+            localStorage.setItem('accountInfo', JSON.stringify(accountInfo))
+            localStorage.setItem('token', data.data.token)
+            navigate('/chats')
+        }
+
     }
 
     return(
@@ -34,7 +52,7 @@ export const AuthPage = () => {
 
                         <div className={style.user_name}>
                             <p>введите ваше имя</p>
-                            <input name={'name'} type="text" onChange={handlerChangeUserInfo}/>
+                            <input name={'user_name'} type="text" onChange={handlerChangeUserInfo}/>
                         </div>
 
                         <div className={style.user_email}>
@@ -50,7 +68,7 @@ export const AuthPage = () => {
                     </div>
 
                     <div className={style.createAccount_button}>
-                        <button>создать аккаунт</button>
+                        <button onClick={handlerClickToCreateAccount}>создать аккаунт</button>
                     </div>
                     
                 </div>
