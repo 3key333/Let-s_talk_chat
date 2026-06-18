@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import style from './authPage.module.scss'
 import { isValidUserInfoToReg } from '../../helpers/helpers'
 import axios from 'axios'
@@ -8,6 +8,12 @@ import { useNavigate } from 'react-router-dom'
 export const AuthPage = () => {
 
     const navigate = useNavigate()
+
+    const token = localStorage.getItem('token')
+
+    useEffect(() => {
+        if(token) navigate('/chats')
+    }, [])
 
     const [userInfo, setUserInfo] = useState<{user_name: string, email: string, password: string}>({
         user_name: '',

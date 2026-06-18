@@ -2,6 +2,9 @@ import style from './header.module.scss'
 
 
 export const Header = () => {
+
+    const accountInfo = JSON.parse(localStorage.getItem('accountInfo'))
+
     return(
         <header>
             <div className={style.headerInner}>
@@ -11,7 +14,7 @@ export const Header = () => {
                 </div>
 
                 <div className={style.header_accauntInfo}>
-                    <p>username</p>
+                    <p>{accountInfo?accountInfo.user_name:''}</p>
                 </div>
 
             </div>

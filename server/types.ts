@@ -22,3 +22,8 @@ export interface IUserEntity {
     password_hash: string;
     created_at: string;
 }
+
+export interface JoinChatBody {
+    name: string;
+    created_by: string;
+}

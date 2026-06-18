@@ -3,6 +3,7 @@ import type { Express } from 'express'
 import cors from 'cors'
 import { createServer, Server as HttpServer } from 'http'
 import { Server as SocketServer } from 'socket.io'
+import type { IUserEntity } from '../types.ts'
 
 
 export const createAppServer = (): { app: Express, httpServer: HttpServer, io: SocketServer} => {
@@ -18,6 +19,15 @@ export const createAppServer = (): { app: Express, httpServer: HttpServer, io: S
             origin: 'http://localhost:5173',
             methods: ['GET', 'POST']
         }
+    })
+
+    io.on('connection', (socket) => {
+        console.log('пользователь подключился')
+
+        socket.on('join_room', (data: {user: string, room: string}) => {
+            console.log(`к комнате ${data.room} подключился пользователь`)
+            socket.join(data.room)
+        })
     })
 
     return { app, httpServer, io }
