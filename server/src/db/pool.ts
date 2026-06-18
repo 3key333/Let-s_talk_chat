@@ -1,7 +1,7 @@
 import { Pool } from 'pg'
 
 
-let pool: Pool
+export let pool: Pool
 
 export const initDataBase = async () => {
 

@@ -5,6 +5,6 @@ import { Layout } from './layout/Layout'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-       <Layout/>
+    <Layout/>
   </StrictMode>,
 )
