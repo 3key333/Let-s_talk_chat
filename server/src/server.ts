@@ -20,6 +20,23 @@ export const createAppServer = (): { app: Express, httpServer: HttpServer, io: S
         }
     })
 
+    io.on('connection', (socket) => {
+        console.log('пользователь подключился')
+
+        socket.on('leave_room', (data: { room: string }) => {
+            socket.leave(data.room)
+        })
+
+        socket.on('join_room', (data: {user: string, room: string}) => {
+            console.log(`к комнате ${data.room} подключился пользователь`)
+            socket.join(data.room)
+        })
+
+        socket.on('new_message', (data: {user_name: string, room: string, message: string}) => {
+            io.to(data.room).emit('add_new_message', data)
+        })
+    })
+
     return { app, httpServer, io }
 }
 
