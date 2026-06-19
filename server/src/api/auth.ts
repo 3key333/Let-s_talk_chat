@@ -32,19 +32,20 @@ authRouter.post('/create_account', async (req: Request<{}, {}, CreateAccountBody
         )
 
         const { rows } = await pool.query<IUserEntity>(
-            `SELECT * FROM users
-            WHERE user_name = $1 AND email = $2 AND password_hash = $3`,
-            [user_name, email, password_hash]
+            `SELECT id, user_name, email, created_at FROM users
+            WHERE user_name = $1 AND email = $2`,
+            [user_name, email]
         )
 
+        const user = rows[0]
         const secretKey = String(process.env.JWT_SECRET)
 
         const token = jwt.sign(
-            { rows },
+            { id: user.id, user_name: user.user_name },
             secretKey,
         )
 
-        res.status(200).json({message: 'Регистрация прошла успешно', data: rows[0], token: token})
+        res.status(200).json({message: 'Регистрация прошла успешно', data: user, token: token})
         
     } catch (error) {
         throwServerError(res, error)

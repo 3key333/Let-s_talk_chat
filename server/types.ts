@@ -19,11 +19,19 @@ export interface IUserEntity {
     id: string;
     user_name: string;
     email: string;
-    password_hash: string;
+    password_hash?: string;
     created_at: string;
 }
 
 export interface JoinChatBody {
     name: string;
     created_by: string;
+}
+
+export interface IMessageEntity {
+    id: string;
+    chat_id: string;
+    user_id: string;
+    text: string;
+    created_at: string;
 }

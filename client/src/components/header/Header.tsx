@@ -3,7 +3,8 @@ import style from './header.module.scss'
 
 export const Header = () => {
 
-    const accountInfo = JSON.parse(localStorage.getItem('accountInfo'))
+    const raw = localStorage.getItem('accountInfo')
+    const accountInfo = raw ? JSON.parse(raw) : null
 
     return(
         <header>
